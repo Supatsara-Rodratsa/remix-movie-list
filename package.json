@@ -8,7 +8,8 @@
     "lint": "eslint --max-warnings=0 .",
     "prepare": "husky install",
     "format": "prettier --ignore-unknown --write .",
-    "check": "prettier --check ."
+    "check": "prettier --check .",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@remix-run/node": "^1.14.3",
@@ -17,11 +18,15 @@
     "@vercel/node": "^2.6.2",
     "clsx": "^1.2.1",
     "framer-motion": "^10.8.4",
+    "graphql-request": "^5.2.0",
     "isbot": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^3.2.2",
+    "@graphql-codegen/client-preset": "^2.1.1",
+    "@graphql-codegen/typescript-graphql-request": "^4.5.8",
     "@remix-run/dev": "^1.14.3",
     "@remix-run/eslint-config": "^1.14.3",
     "@remix-run/serve": "^1.14.3",
