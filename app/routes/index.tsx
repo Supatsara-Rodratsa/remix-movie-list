@@ -1,3 +1,17 @@
+import type { MetaFunction } from '@remix-run/node'
+// import { Outlet } from '@remix-run/react'
+import MovieListWrapper from '~/components/MovieListWrapper'
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Movie List',
+  }
+}
+
 export default function Index() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  return (
+    <main>
+      <MovieListWrapper />
+    </main>
+  )
 }

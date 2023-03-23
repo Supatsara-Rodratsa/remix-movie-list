@@ -1,0 +1,6 @@
+mutation createMovieList($input: CreateListInput!) {
+  createList(input: $input) {
+    id
+    name
+  }
+}

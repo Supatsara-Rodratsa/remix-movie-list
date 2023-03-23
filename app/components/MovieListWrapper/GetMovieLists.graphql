@@ -1,0 +1,6 @@
+query getMovieLists($email: String!) {
+  getMovieLists(email: $email) {
+    id
+    name
+  }
+}
