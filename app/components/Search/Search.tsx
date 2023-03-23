@@ -1,40 +1,34 @@
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Icon from '../Icon/Icon'
 import { ICON } from '~/constants/constants'
+import { useMovieList } from '~/contexts/movieListContext'
 
 type SearchMovieProps = {
   placeholder?: string
 }
 
 const SearchMovie = ({ placeholder }: SearchMovieProps) => {
+  const { currentMovieSearch, setCurrentMovieSearch } = useMovieList()
   const [expanded, setExpanded] = useState<boolean>(false)
-  const [onFocused, setOnFocused] = useState<boolean>(false)
-  useEffect(() => {
-    const inputElement = document.getElementById('search') as HTMLInputElement
-    setExpanded(inputElement === document.activeElement)
-  }, [])
 
   const onChangeHandler = (typingValue: string) => {
-    // setCurrentMovieSearch(typingValue);
+    console.log(typingValue)
+    setCurrentMovieSearch(typingValue)
+    setCurrentMovieSearch(typingValue)
   }
 
   const onMouseLeaveHandler = () => {
-    setExpanded(onFocused)
-    if (!onFocused) {
-      //   setCurrentMovieSearch('');
-    }
+    setExpanded(!!currentMovieSearch)
   }
 
   const onFocusedHandler = () => {
     setExpanded(true)
-    setOnFocused(true)
   }
 
   const onBlurHandler = () => {
-    setExpanded(false)
-    setOnFocused(false)
+    setExpanded(!!currentMovieSearch)
   }
 
   return (
@@ -48,7 +42,7 @@ const SearchMovie = ({ placeholder }: SearchMovieProps) => {
         <input
           placeholder={placeholder || (expanded && 'Search...') || ''}
           id="search"
-          value={''}
+          value={currentMovieSearch}
           onMouseEnter={() => setExpanded(true)}
           onFocus={onFocusedHandler}
           onBlur={onBlurHandler}
@@ -64,6 +58,14 @@ const SearchMovie = ({ placeholder }: SearchMovieProps) => {
         <span className="absolute left-2 top-2">
           <Icon type={ICON.SEARCH} color="white" />
         </span>
+        {expanded && currentMovieSearch && (
+          <span
+            className="absolute right-2 top-2 cursor-pointer"
+            onClick={() => setCurrentMovieSearch('')}
+          >
+            <Icon type={ICON.CLOSE} color="white" />
+          </span>
+        )}
       </div>
     </motion.div>
   )

@@ -225,6 +225,13 @@ export type CreateMovieListMutationVariables = Exact<{
 
 export type CreateMovieListMutation = { createList: { id: number, name: string } };
 
+export type RemoveMovieListMutationVariables = Exact<{
+  deleteListId: Scalars['Int'];
+}>;
+
+
+export type RemoveMovieListMutation = { deleteList: boolean };
+
 export type GetMovieListsQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -239,6 +246,11 @@ export const CreateMovieListDocument = /*#__PURE__*/ gql`
     id
     name
   }
+}
+    `;
+export const RemoveMovieListDocument = /*#__PURE__*/ gql`
+    mutation RemoveMovieList($deleteListId: Int!) {
+  deleteList(id: $deleteListId)
 }
     `;
 export const GetMovieListsDocument = /*#__PURE__*/ gql`
@@ -259,6 +271,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     createMovieList(variables: CreateMovieListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateMovieListMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateMovieListMutation>(CreateMovieListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createMovieList', 'mutation');
+    },
+    RemoveMovieList(variables: RemoveMovieListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveMovieListMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RemoveMovieListMutation>(RemoveMovieListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RemoveMovieList', 'mutation');
     },
     getMovieLists(variables: GetMovieListsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListsQuery>(GetMovieListsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMovieLists', 'query');

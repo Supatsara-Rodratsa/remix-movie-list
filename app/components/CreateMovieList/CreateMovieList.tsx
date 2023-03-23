@@ -2,14 +2,20 @@ import { useEffect, useState } from 'react'
 import Button from '~/components/Button'
 import ModalDialog from '~/components/Modal'
 import { MY_EMAIL_KEY } from '~/constants/constants'
+import type { MovieList } from '~/generated/graphql'
 import { sdk } from '~/libs/client'
 
 type CreateMoveListProp = {
   isOpen: boolean
   onClose(val: string): void
+  updateNewMovieListValue: (newValue: Pick<MovieList, 'id' | 'name'>) => void
 }
 
-const CreateMoveList = ({ isOpen, onClose }: CreateMoveListProp) => {
+const CreateMoveList = ({
+  isOpen,
+  onClose,
+  updateNewMovieListValue,
+}: CreateMoveListProp) => {
   const [open, setIsOpen] = useState<boolean>(isOpen)
   const [currentValue, setCurrentValue] = useState<string>('')
 
@@ -29,6 +35,7 @@ const CreateMoveList = ({ isOpen, onClose }: CreateMoveListProp) => {
       },
     })
     if (createList) {
+      updateNewMovieListValue(createList)
       setIsOpen(false)
       onClose('close')
       setCurrentValue('')
@@ -53,7 +60,7 @@ const CreateMoveList = ({ isOpen, onClose }: CreateMoveListProp) => {
         <div className="flex w-full justify-end">
           <Button
             label="Create"
-            customStyle="rounded-[30px] hover:bg-black hover:text-white text-[16px] py-[6px] px-4 min-w-[0]"
+            bg="red"
             onClick={onCreateNewMovieListHandler}
           />
         </div>

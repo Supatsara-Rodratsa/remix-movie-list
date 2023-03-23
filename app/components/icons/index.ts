@@ -1,6 +1,8 @@
 export { default as Back } from './Back'
 export { default as Calendar } from './Calendar'
 export { default as Close } from './Close'
+export { default as Drag } from './Drag'
+export { default as Edit } from './Edit'
 export { default as EmptyHeart } from './EmptyHeart'
 export { default as EmptyStar } from './EmptyStar'
 export { default as FillHeart } from './FillHeart'

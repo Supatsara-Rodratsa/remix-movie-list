@@ -11,6 +11,7 @@ import type { LinksFunction } from '@remix-run/react/dist/routeModules'
 import stylesheet from '~/tailwind.css'
 import Nav from './components/Nav'
 import type { ReactNode } from 'react'
+import { MovieListProvider } from './contexts/movieListContext'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -34,9 +35,11 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-black">
-        <Layout>
-          <Outlet />
-        </Layout>
+        <MovieListProvider>
+          <Layout>
+            <Outlet />
+          </Layout>
+        </MovieListProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -50,7 +53,7 @@ export function Layout({ children }: LayoutProps) {
     <main>
       <Nav />
       <div className="mt-16">
-        <div className="m-auto flex min-h-[calc(100vh_-_64px)] w-full items-center justify-center p-7 text-white">
+        <div className="m-auto flex min-h-[calc(100vh_-_64px)] w-full p-7 text-white">
           {children}
         </div>
       </div>

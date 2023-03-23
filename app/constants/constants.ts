@@ -9,6 +9,8 @@ export const ICON = {
   EMPTY_HEART: 'empty-heart',
   BACK: 'back',
   CLOSE: 'close',
+  DRAG: 'drag',
+  EDIT: 'edit',
 } as const
 
 export const COLORS = {

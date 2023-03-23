@@ -11,6 +11,8 @@ import {
   HalfStar,
   Rating,
   Search,
+  Drag,
+  Edit,
 } from '../icons'
 
 type IconProps = {
@@ -114,6 +116,26 @@ const Icon = ({ color, size, type }: IconProps) => {
     case ICON.CLOSE: {
       return (
         <Close
+          fill={color}
+          stroke={color}
+          width={size || '24px'}
+          height={size || '24px'}
+        />
+      )
+    }
+    case ICON.DRAG: {
+      return (
+        <Drag
+          fill={color}
+          stroke={color}
+          width={size || '24px'}
+          height={size || '24px'}
+        />
+      )
+    }
+    case ICON.EDIT: {
+      return (
+        <Edit
           fill={color}
           stroke={color}
           width={size || '24px'}

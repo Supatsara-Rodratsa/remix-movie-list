@@ -4,16 +4,27 @@ type ButtonProps = {
   label: string
   type?: 'submit'
   onClick?(): void
-  customStyle?: string
+  bg?: 'red' | 'white' | 'outline'
+  variant?: 'small' | 'default'
 }
 
-const Button = ({ label, onClick, type, customStyle }: ButtonProps) => {
+const Button = ({
+  label,
+  onClick,
+  type,
+  bg = 'white',
+  variant = 'default',
+}: ButtonProps) => {
   return (
     <button
       type={type}
       className={clsx(
-        'min-w-[100px] rounded-lg bg-red px-4 py-2 text-white transition-all duration-[600ms] hover:bg-white hover:text-black',
-        customStyle
+        bg === 'outline' && 'border border-white bg-transparent',
+        bg === 'white' && 'bg-white text-black hover:bg-red hover:text-white',
+        bg === 'red' && 'bg-red text-white hover:bg-black hover:text-white',
+        variant === 'default' && 'py-[6px] px-4 text-base',
+        variant === 'small' && 'py-[2px] px-4 text-sm',
+        'min-w-[0] rounded-[30px] transition-all duration-[600ms] '
       )}
       onClick={onClick}
     >
