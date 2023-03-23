@@ -2,9 +2,9 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   schema: 'https://harbour-movies.vercel.app/api/graphql',
-  documents: ['src/*/.graphql'],
+  documents: ['app/**/*.graphql'],
   generates: {
-    './src/generated/graphql.ts': {
+    './app/generated/graphql.ts': {
       plugins: [
         'typescript',
         'typescript-operations',
