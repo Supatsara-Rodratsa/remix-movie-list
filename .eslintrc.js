@@ -4,5 +4,5 @@ module.exports = {
   rules: {
     // Add your own custom rules here
   },
-  ignorePatterns: ['build', 'node_modules'],
+  ignorePatterns: ['build', 'node_modules', 'api'],
 }

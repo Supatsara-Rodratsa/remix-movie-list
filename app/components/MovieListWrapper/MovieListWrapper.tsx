@@ -54,17 +54,13 @@ const CreateNewMovieList = ({ getNewMovieList }: CreateNewMovieListProps) => {
 const MovieListWrapper = ({ movieList }: MovieListWrapperProps) => {
   const [movieLists, setMovieLists] = useState([...movieList])
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  console.log(movieLists)
-
-  if (movieLists.length === 0) {
-    return <EmptyMovieList />
-  }
 
   const onUpdateMovieListHandler = (
     newMovieList: Pick<MovieList, 'id' | 'name'>
   ) => {
     movieLists.push(newMovieList)
     setMovieLists([...movieLists])
+    setIsEdit(false)
   }
 
   const onRemoveItemHandler = async (id: number) => {
@@ -82,6 +78,10 @@ const MovieListWrapper = ({ movieList }: MovieListWrapperProps) => {
         }
       }
     }
+  }
+
+  if (movieLists.length === 0) {
+    return <EmptyMovieList updateNewMovieList={onUpdateMovieListHandler} />
   }
 
   return (
@@ -104,7 +104,12 @@ const MovieListWrapper = ({ movieList }: MovieListWrapperProps) => {
       </div>
 
       <div className="flex min-w-[calc(50vw)] flex-col">
-        <Reorder.Group axis="y" values={movieLists} onReorder={setMovieLists}>
+        <Reorder.Group
+          axis="y"
+          values={movieLists}
+          onReorder={setMovieLists}
+          layout="position"
+        >
           {movieLists.map((item, i) => (
             <Reorder.Item key={item.id} value={item} dragListener={!isEdit}>
               <MovieListItem

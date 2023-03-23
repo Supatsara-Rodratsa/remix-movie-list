@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import Button from '~/components/Button'
 import CreateMoveList from '~/components/CreateMovieList'
+import type { MovieList } from '~/generated/graphql'
 
-const EmptyMovieList = () => {
+type EmptyMovieListProps = {
+  updateNewMovieList: (newMovieList: Pick<MovieList, 'id' | 'name'>) => void
+}
+
+const EmptyMovieList = ({ updateNewMovieList }: EmptyMovieListProps) => {
   const [showCreateMovieList, setShowCreateMovieList] = useState(false)
 
   const onCloseHandler = (val: string) => {
@@ -21,7 +26,11 @@ const EmptyMovieList = () => {
         label="CREATE MOVIE LIST"
         onClick={() => setShowCreateMovieList(true)}
       />
-      <CreateMoveList isOpen={showCreateMovieList} onClose={onCloseHandler} />
+      <CreateMoveList
+        isOpen={showCreateMovieList}
+        onClose={onCloseHandler}
+        updateNewMovieListValue={updateNewMovieList}
+      />
     </div>
   )
 }
