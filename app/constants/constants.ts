@@ -20,6 +20,8 @@ export const COLORS = {
   WHITE: '#FFFFFF',
   RED: '#ff2c1f',
   GREY: '#9E9E9E',
+  DARK: '#131212',
+  DARKER: '#141414',
 } as const
 
 export const MY_EMAIL_KEY = 'supatsara.rodratsa@gmail.com'

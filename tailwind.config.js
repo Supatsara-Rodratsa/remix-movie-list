@@ -11,6 +11,9 @@ module.exports = {
         white: '#FFFFFF',
         red: '#ff2c1f',
         grey: '#9E9E9E',
+        lightGrey: '#D9D9D9',
+        dark: '#131212',
+        darker: '#141414',
         'opacity-white': 'rgba(255, 255, 255, 0.2)',
       },
       fontFamily: {

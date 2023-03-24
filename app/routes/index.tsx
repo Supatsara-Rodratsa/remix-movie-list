@@ -1,5 +1,4 @@
 import type { MetaFunction } from '@remix-run/node'
-// import { Outlet } from '@remix-run/react'
 import MovieListWrapper from '~/components/MovieListWrapper'
 import { sdk } from '~/libs/client'
 import { MY_EMAIL_KEY } from '~/constants/constants'

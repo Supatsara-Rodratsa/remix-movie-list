@@ -22,7 +22,6 @@ type MovieListProviderProps = {
 
 export function MovieListProvider({ children }: MovieListProviderProps) {
   const [currentMovieSearch, setCurrentMovieSearch] = useState<string>('')
-  console.log(currentMovieSearch, 'currentMovieSearch')
 
   const data = {
     currentMovieSearch,

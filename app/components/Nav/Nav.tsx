@@ -12,7 +12,7 @@ const Nav = () => {
     >
       <div className="flex w-full items-center justify-between gap-4">
         <div className="flex gap-10 mobile:gap-4">
-          <Link to="/" className="hover:text-red">
+          <Link to="" className="hover:text-red">
             Your Movie List
           </Link>
         </div>

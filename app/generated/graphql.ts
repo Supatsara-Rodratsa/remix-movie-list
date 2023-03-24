@@ -225,6 +225,20 @@ export type CreateMovieListMutationVariables = Exact<{
 
 export type CreateMovieListMutation = { createList: { id: number, name: string } };
 
+export type GetRatingByIdQueryVariables = Exact<{
+  searchMovieById: Scalars['String'];
+}>;
+
+
+export type GetRatingByIdQuery = { searchMovieById?: { Ratings?: Array<{ Value?: string | null } | null> | null } | null };
+
+export type SearchMovieByIdQueryVariables = Exact<{
+  searchMovieByIdId: Scalars['String'];
+}>;
+
+
+export type SearchMovieByIdQuery = { searchMovieById?: { Genre?: string | null, Title?: string | null, Year?: string | null, Rated?: string | null, Released?: string | null, Runtime?: string | null, Director?: string | null, Writer?: string | null, Actors?: string | null, Plot?: string | null, Language?: string | null, Country?: string | null, Awards?: string | null, Poster?: string | null, Metascore?: string | null, imdbRating?: string | null, imdbVotes?: string | null, imdbID?: string | null, Type?: string | null, DVD?: string | null, BoxOffice?: string | null, Production?: string | null, Website?: string | null, Response?: string | null, Ratings?: Array<{ Value?: string | null } | null> | null } | null };
+
 export type RemoveMovieListMutationVariables = Exact<{
   deleteListId: Scalars['Int'];
 }>;
@@ -239,12 +253,61 @@ export type GetMovieListsQueryVariables = Exact<{
 
 export type GetMovieListsQuery = { getMovieLists: Array<{ id: number, name: string }> };
 
+export type SearchMovieByTitleQueryVariables = Exact<{
+  title: Scalars['String'];
+}>;
+
+
+export type SearchMovieByTitleQuery = { searchMovieByTitle?: Array<{ Poster?: string | null, Title?: string | null, Type?: string | null, Year?: string | null, imdbID?: string | null } | null> | null };
+
 
 export const CreateMovieListDocument = /*#__PURE__*/ gql`
     mutation createMovieList($input: CreateListInput!) {
   createList(input: $input) {
     id
     name
+  }
+}
+    `;
+export const GetRatingByIdDocument = /*#__PURE__*/ gql`
+    query GetRatingById($searchMovieById: String!) {
+  searchMovieById(id: $searchMovieById) {
+    Ratings {
+      Value
+    }
+  }
+}
+    `;
+export const SearchMovieByIdDocument = /*#__PURE__*/ gql`
+    query SearchMovieById($searchMovieByIdId: String!) {
+  searchMovieById(id: $searchMovieByIdId) {
+    Genre
+    Ratings {
+      Value
+    }
+    Title
+    Year
+    Rated
+    Released
+    Runtime
+    Director
+    Writer
+    Actors
+    Plot
+    Language
+    Country
+    Awards
+    Poster
+    Metascore
+    imdbRating
+    imdbVotes
+    imdbID
+    Type
+    DVD
+    BoxOffice
+    Production
+    Website
+    Response
   }
 }
     `;
@@ -261,6 +324,17 @@ export const GetMovieListsDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const SearchMovieByTitleDocument = /*#__PURE__*/ gql`
+    query searchMovieByTitle($title: String!) {
+  searchMovieByTitle(title: $title) {
+    Poster
+    Title
+    Type
+    Year
+    imdbID
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -272,11 +346,20 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createMovieList(variables: CreateMovieListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateMovieListMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateMovieListMutation>(CreateMovieListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createMovieList', 'mutation');
     },
+    GetRatingById(variables: GetRatingByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRatingByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetRatingByIdQuery>(GetRatingByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetRatingById', 'query');
+    },
+    SearchMovieById(variables: SearchMovieByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchMovieByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchMovieByIdQuery>(SearchMovieByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchMovieById', 'query');
+    },
     RemoveMovieList(variables: RemoveMovieListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveMovieListMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<RemoveMovieListMutation>(RemoveMovieListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RemoveMovieList', 'mutation');
     },
     getMovieLists(variables: GetMovieListsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMovieListsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMovieListsQuery>(GetMovieListsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMovieLists', 'query');
+    },
+    searchMovieByTitle(variables: SearchMovieByTitleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchMovieByTitleQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchMovieByTitleQuery>(SearchMovieByTitleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'searchMovieByTitle', 'query');
     }
   };
 }
