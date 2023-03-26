@@ -12,6 +12,7 @@ import Icon from '../Icon'
 import type { Movie } from '~/generated/graphql'
 import { sdk } from '~/libs/client'
 import { useNavigate, useParams, useRevalidator } from '@remix-run/react'
+import { useMovieList } from '~/contexts/movieListContext'
 
 type MovieProps = {
   movieDetail: Movie
@@ -178,6 +179,7 @@ const MovieStar = ({ imdbRating }: Pick<Movie, 'imdbRating'>) => {
 }
 
 const MovieDetails = ({ movieDetail }: MovieProps) => {
+  const { setCurrentStatus } = useMovieList()
   const { myListId, itemId } = useParams()
   const navigate = useNavigate()
   const revalidate = useRevalidator()
@@ -192,6 +194,7 @@ const MovieDetails = ({ movieDetail }: MovieProps) => {
       if (removeMovie) {
         navigate(`/my-lists/${myListId}`)
         revalidate.revalidate()
+        setCurrentStatus('REMOVE')
       }
     }
   }

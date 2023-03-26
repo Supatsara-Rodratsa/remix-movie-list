@@ -131,7 +131,10 @@ const MovieCard = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className={clsx('relative flex w-fit items-center justify-center')}
+        className={clsx(
+          'relative flex w-fit items-center justify-center',
+          isMovieListItem && 'cursor-pointer'
+        )}
         onMouseEnter={() => setShowButton(true)}
         onMouseLeave={() => setShowButton(false)}
       >

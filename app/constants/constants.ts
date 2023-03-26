@@ -24,4 +24,10 @@ export const COLORS = {
   DARKER: '#141414',
 } as const
 
+export const STATUS = {
+  CREATE: 'Created New Movie List',
+  ADD: 'Added Movie to Movie List',
+  REMOVE: 'Removed Movie from Movie List',
+}
+
 export const MY_EMAIL_KEY = 'supatsara.rodratsa@gmail.com'

@@ -3,6 +3,7 @@ import Button from '../Button'
 import ModalDialog from '../Modal'
 import { useEffect, useState } from 'react'
 import { MY_EMAIL_KEY } from '~/constants/constants'
+import { useMovieList } from '~/contexts/movieListContext'
 
 export type ListItemProps = {
   id: number
@@ -23,6 +24,7 @@ const UpdateMovieListModal = ({
   listItems,
   currentMovieId,
 }: UpdateMovieListModalProps) => {
+  const { setCurrentStatus } = useMovieList()
   const [open, setIsOpen] = useState<boolean>(isOpen)
   const [items, setItems] = useState([...listItems])
   const [showCreateNewList, setShowCreateNewList] = useState<boolean>(false)
@@ -92,6 +94,7 @@ const UpdateMovieListModal = ({
       UpdateNewMovieList()
       createNewMovieList()
       onClose('close')
+      setCurrentStatus('ADD')
     }
   }
 

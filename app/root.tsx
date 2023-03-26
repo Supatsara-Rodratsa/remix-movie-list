@@ -11,7 +11,8 @@ import type { LinksFunction } from '@remix-run/react/dist/routeModules'
 import stylesheet from '~/tailwind.css'
 import Nav from './components/Nav'
 import type { ReactNode } from 'react'
-import { MovieListProvider } from './contexts/movieListContext'
+import { MovieListProvider, useMovieList } from './contexts/movieListContext'
+import Toast from './components/Toast'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -49,6 +50,7 @@ export default function App() {
 }
 
 export function Layout({ children }: LayoutProps) {
+  const { currentStatus } = useMovieList()
   return (
     <main>
       <Nav />
@@ -57,6 +59,7 @@ export function Layout({ children }: LayoutProps) {
           {children}
         </div>
       </div>
+      <Toast statusKey={currentStatus} />
     </main>
   )
 }

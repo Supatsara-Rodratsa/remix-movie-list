@@ -14,9 +14,13 @@ type MovieListWrapperProps = {
 
 type CreateNewMovieListProps = {
   getNewMovieList: (newMovieList: Pick<MovieList, 'id' | 'name'>) => void
+  movieList: GetMovieListsQuery['getMovieLists']
 }
 
-const CreateNewMovieList = ({ getNewMovieList }: CreateNewMovieListProps) => {
+const CreateNewMovieList = ({
+  getNewMovieList,
+  movieList,
+}: CreateNewMovieListProps) => {
   const [showModal, setShowModal] = useState(false)
 
   const onCloseHandler = (val: string) => {
@@ -46,6 +50,7 @@ const CreateNewMovieList = ({ getNewMovieList }: CreateNewMovieListProps) => {
         isOpen={showModal}
         onClose={onCloseHandler}
         updateNewMovieListValue={getNewMovieList}
+        movieList={movieList.map((movie) => movie.name.toLowerCase()) || []}
       />
     </div>
   )
@@ -124,7 +129,10 @@ const MovieListWrapper = ({ movieList }: MovieListWrapperProps) => {
           ))}
         </Reorder.Group>
         {!isEdit && (
-          <CreateNewMovieList getNewMovieList={onUpdateMovieListHandler} />
+          <CreateNewMovieList
+            getNewMovieList={onUpdateMovieListHandler}
+            movieList={movieList}
+          />
         )}
       </div>
     </motion.div>
