@@ -3,6 +3,7 @@ import { json } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { useEffect, useState } from 'react'
 import EmptyState from '~/components/EmptyState'
+import ErrorState from '~/components/ErrorState'
 import MovieSearchResult from '~/components/MovieSearchResult'
 import SkeletonLoader from '~/components/SkeletonLoader'
 import { MY_EMAIL_KEY } from '~/constants/constants'
@@ -28,6 +29,10 @@ export const loader = async ({ request }: LoaderArgs) => {
     searchResult: searchMovieByTitle,
     currentMovieList: getMovieLists,
   })
+}
+
+export const ErrorBoundary = ({ error }: { error: Error }) => {
+  return <ErrorState error={error} />
 }
 
 export default function Search() {

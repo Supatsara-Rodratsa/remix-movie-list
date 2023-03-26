@@ -58,10 +58,15 @@ const UpdateMovieListModal = ({
     listId: number
     imdbId: string
   }) => {
-    await sdk.AddMovie({
-      listId,
-      imdbId,
-    })
+    try {
+      await sdk.AddMovie({
+        listId,
+        imdbId,
+      })
+    } catch (e) {
+      console.log(e)
+      throw e
+    }
   }
 
   const createNewMovieList = async () => {

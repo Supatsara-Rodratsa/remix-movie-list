@@ -1,6 +1,7 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { Outlet, useLoaderData, useNavigate, useParams } from '@remix-run/react'
 import EmptyMovieListItem from '~/components/EmptyMovieListItem'
+import ErrorState from '~/components/ErrorState'
 import MovieCard from '~/components/MovieCard'
 import type { Movie, SearchMovie } from '~/generated/graphql'
 import { sdk } from '~/libs/client'
@@ -21,6 +22,10 @@ export const loader = async ({ params }: LoaderArgs) => {
   }
 
   return []
+}
+
+export const ErrorBoundary = ({ error }: { error: Error }) => {
+  return <ErrorState error={error} />
 }
 
 export default function MovieList() {
