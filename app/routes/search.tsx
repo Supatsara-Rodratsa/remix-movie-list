@@ -2,6 +2,7 @@ import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { useEffect, useState } from 'react'
+import EmptyState from '~/components/EmptyState'
 import MovieSearchResult from '~/components/MovieSearchResult'
 import SkeletonLoader from '~/components/SkeletonLoader'
 import { MY_EMAIL_KEY } from '~/constants/constants'
@@ -9,7 +10,7 @@ import { sdk } from '~/libs/client'
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Search Movie',
+    title: 'Search',
   }
 }
 
@@ -30,7 +31,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 }
 
 export default function Search() {
-  console.log('rendering')
   const { searchResult, currentMovieList } = useLoaderData<typeof loader>()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -56,5 +56,5 @@ export default function Search() {
     return <SkeletonLoader size={15} />
   }
 
-  return <p>Data Not Found</p>
+  return <EmptyState />
 }

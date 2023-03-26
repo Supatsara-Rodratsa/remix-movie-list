@@ -53,7 +53,7 @@ export function Layout({ children }: LayoutProps) {
     <main>
       <Nav />
       <div className="mt-16">
-        <div className="m-auto flex min-h-[calc(100vh_-_64px)] w-full p-7 text-white">
+        <div className="m-auto flex min-h-[calc(100vh_-_80px)] w-full p-7 pt-10 text-white">
           {children}
         </div>
       </div>

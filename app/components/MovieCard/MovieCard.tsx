@@ -86,19 +86,6 @@ const MovieCard = ({
     if (val === 'close') setShowModal(false)
   }
 
-  // const onUpdateMovieStatusHandler = (lists: ListItemProps[]) => {
-  //   console.log(lists, 'lists')
-
-  //   setMovieListStatus(lists)
-  // }
-
-  // const onAddMovieHandler = async () => {
-  //   // const { deleteList } = await sdk.AddMovie({
-  //   //   imdbId: imdbID || '',
-  //   //   listId
-  //   // })
-  // }
-
   const style = css`
     :before {
       background: linear-gradient(
@@ -117,22 +104,26 @@ const MovieCard = ({
       position: absolute;
       transition: all 1s;
     }
-
-    :hover:before {
-      background: linear-gradient(
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.6),
-        rgba(0, 0, 0, 0.7),
-        rgba(0, 0, 0, 0.9),
-        rgba(0, 0, 0, 1)
-      );
-      content: '';
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      transition: all 1s;
-    }
   `
+
+  const gradient =
+    showButton &&
+    css`
+      :before {
+        background: linear-gradient(
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.7),
+          rgba(0, 0, 0, 0.8),
+          rgba(0, 0, 0, 0.9),
+          rgba(0, 0, 0, 1)
+        );
+        content: '';
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        transition: all 1s ease-in-out;
+      }
+    `
 
   return (
     <>
@@ -140,9 +131,7 @@ const MovieCard = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className={clsx(
-          'relative flex w-fit cursor-pointer items-center justify-center'
-        )}
+        className={clsx('relative flex w-fit items-center justify-center')}
         onMouseEnter={() => setShowButton(true)}
         onMouseLeave={() => setShowButton(false)}
       >
@@ -150,7 +139,8 @@ const MovieCard = ({
           onClick={() => {}}
           className={clsx(
             'relative h-[320px] w-[260px] overflow-hidden bg-white',
-            style
+            style,
+            gradient
           )}
         >
           <MoviePoster Poster={movie.Poster} Title={movie.Title} />
@@ -165,18 +155,23 @@ const MovieCard = ({
         <div
           className={clsx(
             showButton ? 'flex' : 'hidden',
-            'absolute top-[50%] left-[50%] z-20 flex w-full -translate-x-[50%] -translate-y-[50%] justify-center'
+            'absolute top-[50%] left-[50%] z-20 flex w-full -translate-x-[50%] -translate-y-[50%] justify-center transition-all duration-700 ease-in-out'
           )}
         >
           {!isMovieListItem && (
-            <Button
-              label="Add To Movie List"
-              onClick={() => {
-                console.log('hi')
-
-                setShowModal(true)
-              }}
-            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Button
+                label="Add to Movie List"
+                onClick={() => {
+                  setShowModal(true)
+                }}
+              />
+            </motion.div>
           )}
         </div>
       </motion.div>

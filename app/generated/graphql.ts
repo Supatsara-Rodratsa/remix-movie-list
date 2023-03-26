@@ -233,13 +233,6 @@ export type AddMovieMutationVariables = Exact<{
 
 export type AddMovieMutation = { addMovie: { movie_list_id: number, imdb_id: string, id: number, movie: { Title?: string | null, Year?: string | null, Rated?: string | null, Released?: string | null, Runtime?: string | null, Genre?: string | null, Director?: string | null, Writer?: string | null, Actors?: string | null, Plot?: string | null, Language?: string | null, Country?: string | null, Awards?: string | null, Poster?: string | null, Metascore?: string | null, imdbRating?: string | null, imdbVotes?: string | null, imdbID?: string | null, Type?: string | null, DVD?: string | null, BoxOffice?: string | null, Production?: string | null, Website?: string | null, Response?: string | null, Ratings?: Array<{ Source?: string | null, Value?: string | null } | null> | null } } };
 
-export type GetRatingByIdQueryVariables = Exact<{
-  searchMovieById: Scalars['String'];
-}>;
-
-
-export type GetRatingByIdQuery = { searchMovieById?: { Ratings?: Array<{ Value?: string | null } | null> | null } | null };
-
 export type SearchMovieByIdQueryVariables = Exact<{
   searchMovieByIdId: Scalars['String'];
 }>;
@@ -328,15 +321,6 @@ export const AddMovieDocument = /*#__PURE__*/ gql`
     movie_list_id
     imdb_id
     id
-  }
-}
-    `;
-export const GetRatingByIdDocument = /*#__PURE__*/ gql`
-    query GetRatingById($searchMovieById: String!) {
-  searchMovieById(id: $searchMovieById) {
-    Ratings {
-      Value
-    }
   }
 }
     `;
@@ -454,9 +438,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     AddMovie(variables: AddMovieMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AddMovieMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<AddMovieMutation>(AddMovieDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AddMovie', 'mutation');
-    },
-    GetRatingById(variables: GetRatingByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRatingByIdQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetRatingByIdQuery>(GetRatingByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetRatingById', 'query');
     },
     SearchMovieById(variables: SearchMovieByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchMovieByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<SearchMovieByIdQuery>(SearchMovieByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'SearchMovieById', 'query');

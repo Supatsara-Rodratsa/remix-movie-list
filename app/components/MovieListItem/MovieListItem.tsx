@@ -38,11 +38,13 @@ const MovieListItem = ({
       )}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => {
-        navigate(`/my-lists/${id}`)
-      }}
     >
-      <div className="flex items-center gap-8">
+      <div
+        className="flex w-full items-center gap-8"
+        onClick={() => {
+          if (!isEdit) navigate(`/my-lists/${id}`)
+        }}
+      >
         <div
           className={clsx(
             hover ? 'bg-black text-white' : 'bg-white text-black',

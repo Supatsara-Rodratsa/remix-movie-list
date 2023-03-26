@@ -54,7 +54,7 @@ const SearchMovie = ({ placeholder }: SearchMovieProps) => {
   }, [currentAutoComplete, currentMovieSearch, inputValue])
 
   function closeSearch() {
-    setExpanded(false)
+    if (!currentMovieSearch) setExpanded(false)
   }
 
   const onClearInputHandler = () => {

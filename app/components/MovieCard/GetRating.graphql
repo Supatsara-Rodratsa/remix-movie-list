@@ -1,7 +1,0 @@
-query GetRatingById($searchMovieById: String!) {
-  searchMovieById(id: $searchMovieById) {
-    Ratings {
-      Value
-    }
-  }
-}

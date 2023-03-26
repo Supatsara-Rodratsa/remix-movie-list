@@ -27,8 +27,8 @@ const ModalDialog = ({ isOpen, onClose, children }: ModalDialogProps) => {
       {open && (
         <motion.div
           key="modal"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
           className={clsx(
@@ -37,7 +37,13 @@ const ModalDialog = ({ isOpen, onClose, children }: ModalDialogProps) => {
           )}
         >
           <div className="flex min-h-screen items-center justify-center">
-            <div className="relative z-[99] m-10 rounded-lg bg-white p-6 text-black">
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="relative z-[99] m-10 rounded-lg bg-white p-6 text-black"
+            >
               <div className="absolute top-[50%] left-[50%] z-[999] h-fit min-w-[400px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white p-[35px] pb-[30px] text-center focus:outline-none">
                 <div
                   className="absolute top-[16px] right-[16px] cursor-pointer"
@@ -47,7 +53,7 @@ const ModalDialog = ({ isOpen, onClose, children }: ModalDialogProps) => {
                 </div>
                 {children}
               </div>
-            </div>
+            </motion.div>
             <div className="fixed inset-0 z-10 bg-black opacity-75"></div>
           </div>
         </motion.div>

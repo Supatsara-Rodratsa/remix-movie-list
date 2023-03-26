@@ -11,7 +11,7 @@ import Button from '../Button'
 import Icon from '../Icon'
 import type { Movie } from '~/generated/graphql'
 import { sdk } from '~/libs/client'
-import { useNavigate, useParams } from '@remix-run/react'
+import { useNavigate, useParams, useRevalidator } from '@remix-run/react'
 
 type MovieProps = {
   movieDetail: Movie
@@ -80,7 +80,9 @@ const Director = ({ Director }: Pick<Movie, 'Director'>) => {
   return (
     <div className="flex w-full items-center gap-2">
       <h1 className="font-bold text-[14]">Director:</h1>
-      <p className="text-base">{Director}</p>
+      <p className="text-base">
+        {Director && Director !== 'N/A' ? Director : '-'}
+      </p>
     </div>
   )
 }
@@ -145,7 +147,9 @@ const Rating = ({ imdbRating }: Pick<Movie, 'imdbRating'>) => {
   return (
     <div className="flex items-center gap-2">
       <Icon size="20px" type={ICON.RATING} color={COLORS.RED} />
-      <p className="text-base">{`${imdbRating} / 10` || '-'}</p>
+      <p className="text-base">
+        {imdbRating && imdbRating !== 'N/A' ? `${imdbRating} / 10` || '-' : '-'}
+      </p>
     </div>
   )
 }
@@ -176,6 +180,7 @@ const MovieStar = ({ imdbRating }: Pick<Movie, 'imdbRating'>) => {
 const MovieDetails = ({ movieDetail }: MovieProps) => {
   const { myListId, itemId } = useParams()
   const navigate = useNavigate()
+  const revalidate = useRevalidator()
 
   const onHandlerRemoveMovieItem = async () => {
     if (itemId && myListId) {
@@ -186,6 +191,7 @@ const MovieDetails = ({ movieDetail }: MovieProps) => {
 
       if (removeMovie) {
         navigate(`/my-lists/${myListId}`)
+        revalidate.revalidate()
       }
     }
   }

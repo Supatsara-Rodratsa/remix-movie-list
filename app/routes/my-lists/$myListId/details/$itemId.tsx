@@ -1,11 +1,12 @@
 import type { MetaFunction } from '@remix-run/node'
 import { useParams, useRouteLoaderData } from '@remix-run/react'
+import EmptyState from '~/components/EmptyState'
 import MovieDetails from '~/components/MovieDetails'
 import type { MovieListItem } from '~/generated/graphql'
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Movie Item',
+    title: 'Movie Detail',
   }
 }
 
@@ -25,5 +26,5 @@ export default function MovieDetail() {
         <MovieDetails movieDetail={selectedMovie.movie} />
       </div>
     )
-  return <p>Data Not Found</p>
+  return <EmptyState />
 }

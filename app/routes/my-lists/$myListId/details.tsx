@@ -3,7 +3,7 @@ import { Outlet } from '@remix-run/react'
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Search Movie',
+    title: 'Movie Detail',
   }
 }
 

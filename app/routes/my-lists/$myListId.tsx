@@ -7,7 +7,7 @@ import { sdk } from '~/libs/client'
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Search Movie',
+    title: 'Movie List Items',
   }
 }
 
@@ -53,7 +53,7 @@ export default function MovieList() {
 
   return (
     <div className="flex w-full gap-6 tablet:flex-wrap ">
-      <div className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-6">
+      <div className="mx-auto flex w-full flex-wrap justify-center gap-x-6 gap-y-6">
         {movieListItems.map((list) => renderMovieItem(list.movie, list.id))}
       </div>
       <div className={params.itemId && 'w-full'}>
