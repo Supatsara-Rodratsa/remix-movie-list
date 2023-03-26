@@ -1,8 +1,10 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { json } from '@remix-run/node'
+import { Outlet, useLoaderData } from '@remix-run/react'
 import { useEffect, useState } from 'react'
 import MovieSearchResult from '~/components/MovieSearchResult'
 import SkeletonLoader from '~/components/SkeletonLoader'
+import { MY_EMAIL_KEY } from '~/constants/constants'
 import { sdk } from '~/libs/client'
 
 export const meta: MetaFunction = () => {
@@ -17,12 +19,19 @@ export const loader = async ({ request }: LoaderArgs) => {
   const { searchMovieByTitle } = await sdk.searchMovieByTitle({
     title: search.get('q') || '',
   })
-  return searchMovieByTitle
+
+  const { getMovieLists } = await sdk.getMovieLists({
+    email: MY_EMAIL_KEY,
+  })
+  return json({
+    searchResult: searchMovieByTitle,
+    currentMovieList: getMovieLists,
+  })
 }
 
 export default function Search() {
   console.log('rendering')
-  const searchResult = useLoaderData<typeof loader>()
+  const { searchResult, currentMovieList } = useLoaderData<typeof loader>()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -35,7 +44,11 @@ export default function Search() {
   if (searchResult)
     return (
       <main className="mx-auto">
-        <MovieSearchResult movieList={searchResult} />
+        <MovieSearchResult
+          movieList={searchResult}
+          currentMovieList={currentMovieList}
+        />
+        <Outlet />
       </main>
     )
 

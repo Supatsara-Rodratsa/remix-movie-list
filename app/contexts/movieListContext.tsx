@@ -5,11 +5,15 @@ import { createContext, useContext } from 'react'
 type MovieListContextType = {
   currentMovieSearch: string
   setCurrentMovieSearch(currentValue: string): void
+  currentAutoComplete: string[]
+  setCurrentAutoComplete(currentValue: string[]): void
 }
 
 const movieListContextDefaultValues: MovieListContextType = {
   currentMovieSearch: '',
   setCurrentMovieSearch: () => {},
+  currentAutoComplete: [],
+  setCurrentAutoComplete: () => {},
 }
 
 const MovieListContext = createContext<MovieListContextType>(
@@ -22,10 +26,13 @@ type MovieListProviderProps = {
 
 export function MovieListProvider({ children }: MovieListProviderProps) {
   const [currentMovieSearch, setCurrentMovieSearch] = useState<string>('')
+  const [currentAutoComplete, setCurrentAutoComplete] = useState<string[]>([])
 
   const data = {
     currentMovieSearch,
     setCurrentMovieSearch,
+    currentAutoComplete,
+    setCurrentAutoComplete,
   }
 
   return (

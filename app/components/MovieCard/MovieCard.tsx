@@ -1,7 +1,17 @@
 import { css } from '@emotion/css'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import type { SearchMovie } from '~/generated/graphql'
+import type { GetMovieListsQuery, SearchMovie } from '~/generated/graphql'
+import Button from '../Button'
+import { useState } from 'react'
+import UpdateMovieListModal from '../UpdateMovieListModal'
+import type { ListItemProps } from '../UpdateMovieListModal/UpdateMovieListModal'
+
+type MovieCardProps = {
+  movie: SearchMovie
+  currentMovieList?: GetMovieListsQuery['getMovieLists']
+  isMovieListItem?: boolean
+}
 
 const MovieDetail = ({
   Title,
@@ -9,7 +19,7 @@ const MovieDetail = ({
   Type,
 }: Pick<SearchMovie, 'Title' | 'Year' | 'Type'>) => {
   return (
-    <div className="flex h-full w-full flex-col justify-end">
+    <div className="relative flex h-full w-full flex-col justify-end">
       <div className="flex flex-col gap-2">
         <div className="flex items-end justify-between">
           <p className="text-[20px] font-light tablet:text-xl">{Title}</p>
@@ -40,7 +50,7 @@ const MoviePoster = ({
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 bg-black">
       <img
-        src="assets/movie-not-found.png"
+        src="/assets/movie-not-found.png"
         alt="Not Found Poster"
         className="w-[40%]"
       />
@@ -49,7 +59,46 @@ const MoviePoster = ({
   )
 }
 
-const MovieCard = ({ Title, Poster, Year, Type }: SearchMovie) => {
+const MovieCard = ({
+  movie,
+  currentMovieList,
+  isMovieListItem = false,
+}: MovieCardProps) => {
+  const [showButton, setShowButton] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [movieListStatus, setMovieListStatus] = useState<ListItemProps[]>(
+    initMovieStatus()
+  )
+
+  function initMovieStatus() {
+    if (currentMovieList)
+      return currentMovieList.map((movie) => {
+        return {
+          ...movie,
+          status: false,
+        }
+      })
+    return []
+  }
+
+  const onCloseHandler = (val: string) => {
+    if (val === 'close') setShowModal(false)
+  }
+
+  // const onUpdateMovieStatusHandler = (lists: ListItemProps[]) => {
+  //   console.log(lists, 'lists')
+
+  //   setMovieListStatus(lists)
+  // }
+
+  // const onAddMovieHandler = async () => {
+  //   // const { deleteList } = await sdk.AddMovie({
+  //   //   imdbId: imdbID || '',
+  //   //   listId
+  //   // })
+  // }
+
   const style = css`
     :before {
       background: linear-gradient(
@@ -81,33 +130,63 @@ const MovieCard = ({ Title, Poster, Year, Type }: SearchMovie) => {
       width: 100%;
       height: 100%;
       z-index: 10;
-      /* position: absolute; */
       transition: all 1s;
     }
   `
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      className={clsx(
-        'relative flex w-fit cursor-pointer items-center justify-center'
-      )}
-    >
-      <div
-        onClick={() => {}}
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
         className={clsx(
-          'relative h-[320px] w-[260px] overflow-hidden bg-white',
-          style
+          'relative flex w-fit cursor-pointer items-center justify-center'
         )}
+        onMouseEnter={() => setShowButton(true)}
+        onMouseLeave={() => setShowButton(false)}
       >
-        <MoviePoster Poster={Poster} Title={Title} />
-        <div className="absolute top-0 z-10 flex h-full w-full items-end p-4">
-          <MovieDetail Title={Title} Year={Year} Type={Type} />
+        <div
+          onClick={() => {}}
+          className={clsx(
+            'relative h-[320px] w-[260px] overflow-hidden bg-white',
+            style
+          )}
+        >
+          <MoviePoster Poster={movie.Poster} Title={movie.Title} />
+          <div className="absolute top-0 z-10 flex h-full w-full items-end p-4">
+            <MovieDetail
+              Title={movie.Title}
+              Year={movie.Year}
+              Type={movie.Type}
+            />
+          </div>
         </div>
-      </div>
-    </motion.div>
+        <div
+          className={clsx(
+            showButton ? 'flex' : 'hidden',
+            'absolute top-[50%] left-[50%] z-20 flex w-full -translate-x-[50%] -translate-y-[50%] justify-center'
+          )}
+        >
+          {!isMovieListItem && (
+            <Button
+              label="Add To Movie List"
+              onClick={() => {
+                console.log('hi')
+
+                setShowModal(true)
+              }}
+            />
+          )}
+        </div>
+      </motion.div>
+      <UpdateMovieListModal
+        isOpen={showModal}
+        onClose={onCloseHandler}
+        listItems={movieListStatus}
+        currentMovieId={movie.imdbID || ''}
+      />
+    </>
   )
 }
 

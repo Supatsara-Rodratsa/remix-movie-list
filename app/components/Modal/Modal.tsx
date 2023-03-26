@@ -32,12 +32,12 @@ const ModalDialog = ({ isOpen, onClose, children }: ModalDialogProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
           className={clsx(
-            'fixed inset-0 z-10 overflow-y-auto',
+            'fixed inset-0 z-[99] overflow-y-auto',
             open ? 'block' : 'hidden'
           )}
         >
           <div className="flex min-h-screen items-center justify-center">
-            <div className="relative z-20 m-10 rounded-lg bg-white p-6 text-black">
+            <div className="relative z-[99] m-10 rounded-lg bg-white p-6 text-black">
               <div className="absolute top-[50%] left-[50%] z-[999] h-fit min-w-[400px] -translate-x-[50%] -translate-y-[50%] rounded-lg bg-white p-[35px] pb-[30px] text-center focus:outline-none">
                 <div
                   className="absolute top-[16px] right-[16px] cursor-pointer"

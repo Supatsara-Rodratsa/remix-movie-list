@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Icon from '../Icon'
 import { ICON } from '~/constants/constants'
 import { motion } from 'framer-motion'
+import { useNavigate } from '@remix-run/react'
 
 type MovieListItemProps = {
   id: number
@@ -22,6 +23,7 @@ const MovieListItem = ({
   onRemoveItem,
 }: MovieListItemProps) => {
   const [hover, setHover] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <motion.div
@@ -36,6 +38,9 @@ const MovieListItem = ({
       )}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onClick={() => {
+        navigate(`/my-lists/${id}`)
+      }}
     >
       <div className="flex items-center gap-8">
         <div

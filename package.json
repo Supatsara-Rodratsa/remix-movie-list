@@ -25,6 +25,7 @@
     "graphql-request": "^5.2.0",
     "isbot": "latest",
     "react": "^18.2.0",
+    "react-detect-click-outside": "^1.1.7",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

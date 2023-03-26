@@ -2,7 +2,7 @@ import type { MetaFunction } from '@remix-run/node'
 import MovieListWrapper from '~/components/MovieListWrapper'
 import { sdk } from '~/libs/client'
 import { MY_EMAIL_KEY } from '~/constants/constants'
-import { useLoaderData } from '@remix-run/react'
+import { Outlet, useLoaderData } from '@remix-run/react'
 
 export const meta: MetaFunction = () => {
   return {
@@ -22,6 +22,7 @@ export default function Index() {
   return (
     <main className="mx-auto">
       <MovieListWrapper movieList={movieLists} />
+      <Outlet />
     </main>
   )
 }
