@@ -3,6 +3,7 @@ import MovieListWrapper from '~/components/MovieListWrapper'
 import { sdk } from '~/libs/client'
 import { MY_EMAIL_KEY } from '~/constants/constants'
 import { Outlet, useLoaderData } from '@remix-run/react'
+import ErrorState from '~/components/ErrorState'
 
 export const meta: MetaFunction = () => {
   return {
@@ -15,6 +16,10 @@ export const loader = async () => {
     email: MY_EMAIL_KEY,
   })
   return getMovieLists
+}
+
+export const ErrorBoundary = ({ error }: { error: Error }) => {
+  return <ErrorState error={error} />
 }
 
 export default function Index() {

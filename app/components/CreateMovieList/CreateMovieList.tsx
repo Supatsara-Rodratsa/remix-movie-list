@@ -38,18 +38,20 @@ const CreateMoveList = ({
   }
 
   const onCreateNewMovieListHandler = async () => {
-    const { createList } = await sdk.createMovieList({
-      input: {
-        name: currentValue,
-        email: MY_EMAIL_KEY,
-      },
-    })
-    if (createList) {
-      updateNewMovieListValue(createList)
-      setIsOpen(false)
-      onClose('close')
-      setCurrentValue('')
-      setCurrentStatus('CREATE')
+    if (!isError) {
+      const { createList } = await sdk.createMovieList({
+        input: {
+          name: currentValue,
+          email: MY_EMAIL_KEY,
+        },
+      })
+      if (createList) {
+        updateNewMovieListValue(createList)
+        setIsOpen(false)
+        onClose('close')
+        setCurrentValue('')
+        setCurrentStatus('CREATE')
+      }
     }
   }
 

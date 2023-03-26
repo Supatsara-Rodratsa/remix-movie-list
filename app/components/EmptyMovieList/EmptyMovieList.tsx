@@ -30,6 +30,7 @@ const EmptyMovieList = ({ updateNewMovieList }: EmptyMovieListProps) => {
         isOpen={showCreateMovieList}
         onClose={onCloseHandler}
         updateNewMovieListValue={updateNewMovieList}
+        movieList={[]}
       />
     </div>
   )
