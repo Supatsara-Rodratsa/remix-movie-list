@@ -30,10 +30,15 @@ const CreateMoveList = ({
   }, [isOpen])
 
   const onChangeHandler = (typingValue: string) => {
-    const foundName = movieList.some(
-      (name) => name === typingValue.toLowerCase()
-    )
-    setIsError(foundName)
+    if (!typingValue) {
+      setIsError(false)
+    } else {
+      const foundName = movieList.some(
+        (name) => name === typingValue.toLowerCase()
+      )
+      setIsError(foundName)
+    }
+
     setCurrentValue(typingValue)
   }
 
