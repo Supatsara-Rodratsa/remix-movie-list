@@ -1,3 +1,3 @@
-import MovieListWrapper from './MovieListWrapper';
+import MovieListWrapper from './MovieListWrapper'
 
-export default MovieListWrapper;
+export default MovieListWrapper

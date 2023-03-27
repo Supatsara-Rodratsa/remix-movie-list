@@ -1,3 +1,3 @@
-import EmptyMovieList from './EmptyMovieList';
+import EmptyMovieList from './EmptyMovieList'
 
-export default EmptyMovieList;
+export default EmptyMovieList
